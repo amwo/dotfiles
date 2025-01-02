@@ -13,7 +13,7 @@
 
       c = "cargo";
       g = "git";
-      m = 'make';
+      m = "make";
       s = "screen"
       t = "tmux";
       v = "nvim";
