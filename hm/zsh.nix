@@ -33,7 +33,7 @@
       export EDITOR="nvim"
       export NIXPKGS_ALLOW_UNFREE=1
       export TERM=xterm-256color
-      export PROMPT='${PWD##*/} ~ '
+      export PROMPT="${PWD##*/} ~ "
 
       autoload -Uz vcs_info
       precmd() { vcs_info; }
