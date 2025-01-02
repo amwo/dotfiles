@@ -13,6 +13,5 @@
     gcc
     nodePackages_latest.nodejs
     nodePackages_latest.pnpm
-    rust-bin.stable.latest.default
   ];
 }
