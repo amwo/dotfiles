@@ -43,6 +43,5 @@
 
 	zstyle ":completion:*" matcher-list "m:{a-z}={A-Z}"
 	zstyle ":vcs_info:git:*" formats " (%b)"
-      '';
   };
 }
