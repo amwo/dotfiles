@@ -18,6 +18,8 @@
         set -g window-status-current-format "●"
         set-option -g status-bg "colour0"
         set-option -g status-fg "colour255"
+        set-option -g status-left ""
+        set-option -g status-right ""
     '';
   };
 }
