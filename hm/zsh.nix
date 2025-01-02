@@ -41,9 +41,9 @@
       zstyle ':vcs_info:*' enable git
       zstyle ':vcs_info:git:*' formats '%b'
       zstyle ':vcs_info:git:*' actionformats '%b|%a'
-
-      export PROMPT="am"
     '';
   };
+
+  users.defaultShell = pkgs.zsh;
 }
 
