@@ -12,7 +12,7 @@
     prefix = "C-z";
     shell = pkgs.lib.getExe pkgs.zsh;
     terminal = "screen-256color";
-    extraConfg = ''
+    extraConfig = ''
         set -g status-justify centre
     '';
   };
