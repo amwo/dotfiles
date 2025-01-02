@@ -53,7 +53,7 @@
 
       setopt PROMPT_SUBST
 
-      export PROMPT="% ~ "
+      export PROMPT="%C ~ "
 
       #if type rg &> /dev/null; then
         export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!.git'"
