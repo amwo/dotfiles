@@ -11,7 +11,7 @@
     shellAliases = {
       sudo = "sudo ";
 
-      c = "cargo"
+      c = "cargo";
       g = "git";
       m = 'make';
       s = "screen"
