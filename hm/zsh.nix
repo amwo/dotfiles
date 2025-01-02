@@ -41,6 +41,8 @@
       export EDITOR="nvim"
       export NIXPKGS_ALLOW_UNFREE=1
       export TERM=xterm-256color
+      export DIRENV_LOG_FORMAT=
+      export DIRENV_WARN_TIMEOUT=1h
 
       autoload -Uz vcs_info
       precmd() { vcs_info }
