@@ -36,13 +36,13 @@
         export TERM=xterm-256color
 	export PROMPT="${PWD##*/}@${:-%m}${vcs_info_msg_0_} ~ "
 
-
+	autoload -Uz compinit && compinit
 	autoload -Uz vcs_info
-	zstyle ":vcs_info:*" formats "%s: %b"
-	zstyle ":vcs_info:*" actionformats "%s: %b (%a)"
-	
-	zstyle ":completion:*' matcher-list 'm:{a-z}={A-Z}"
-	zstyle ":vcs_info:git:*' formats ' (%b)"
+
+	setopt PROMPT_SUBST
+
+	zstyle ":completion:*" matcher-list "m:{a-z}={A-Z}"
+	zstyle ":vcs_info:git:*" formats " (%b)"
       '';
   };
 }
