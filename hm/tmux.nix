@@ -16,6 +16,8 @@
         set -g status-justify centre
         set -g window-status-format "◯"
         set -g window-status-current-format "●"
+        set-option -g status-bg "colour0"
+        set-option -g status-fg "colour255"
     '';
   };
 }
