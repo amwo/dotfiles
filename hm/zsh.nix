@@ -44,6 +44,13 @@
     '';
   };
 
-  users.defaultShell = pkgs.zsh;
+  home.activation.setDefaultShell = lib.hm.activation.runCommand "set-zsh-default" {
+    shellPath = "${pkgs.zsh}/bin/zsh";
+  } ''
+    if [ "$(echo $SHELL)" != "${shellPath}" ]; then
+      echo "Changing default shell to ${shellPath}"
+      chsh -s "${shellPath}"
+    fi
+  '';
 }
 
