@@ -40,7 +40,7 @@
           ];
         in
         {
-          default = pkgs.mkShell { packages = formatters ++ scripts; };
+	  default = pkgs.mkShell { packages = ([ pkgs.nh ]) ++ formatters ++ scripts; };
         }
       );
     };
