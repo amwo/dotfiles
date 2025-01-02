@@ -43,7 +43,7 @@
         zstyle ':vcs_info:*' enable git
 
         # Customize the prompt
-        export PROMPT='${PWD##*/}@${:-%m}${vcs_info_msg_0_} ~ '
+        export PROMPT="${PWD##*/}@${:-%m}${vcs_info_msg_0_} ~ "
       '';
   };
 }
