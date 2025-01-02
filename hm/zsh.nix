@@ -53,7 +53,7 @@
 
       setopt PROMPT_SUBST
 
-      export PROMPT="%F{green}%*%f %F{blue}%~%f %F{red}%f$ "
+      export PROMPT="${PWD##*/} ~ "
 
       #if type rg &> /dev/null; then
         export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!.git'"
