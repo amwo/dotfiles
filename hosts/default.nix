@@ -41,16 +41,19 @@ in
     "am@arch.local" = mkHomeManagerConfiguration {
       system = "x86_64-linux";
       username = "am";
+      overlays = [ inputs.fenix.overlays.default ];
       modules = [ ./arch.local/hm.nix ];
     };
     "am@mini.local" = mkHomeManagerConfiguration {
       system = "aarch64-darwin";
       username = "am";
+      overlays = [ inputs.fenix.overlays.default ];
       modules = [ ./mini.local/hm.nix ];
     };
     "am@air.local" = mkHomeManagerConfiguration {
       system = "aarch64-darwin";
       username = "am";
+      overlays = [ inputs.fenix.overlays.default ];
       modules = [ ./air.local/hm.nix ];
     };
   };
