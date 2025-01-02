@@ -19,7 +19,7 @@
         set-option -g status-bg "colour0"
         set-option -g status-fg "colour255"
         set-option -g status-left ""
-        set-option -g status-right ""
+        set-option -g status-right "#(cd #{pane_current_path}; git rev-parse --abbrev-ref HEAD)"
     '';
   };
 }

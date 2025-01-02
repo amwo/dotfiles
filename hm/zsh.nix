@@ -14,8 +14,6 @@
     '';
 
     enableCompletion = true;
-    autosuggestion.enable = true;
-    syntaxHighlighting.enable = true;
 
     shellAliases = {
       c = "cargo";
@@ -47,12 +45,15 @@
       autoload -Uz vcs_info
       precmd() { vcs_info }
 
+      zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+      zstyle ':vcs_info:git:*' formats ' (%b)'
       zstyle ':vcs_info:*' enable git
       zstyle ':vcs_info:git:*' formats '%b'
       zstyle ':vcs_info:git:*' actionformats '%b|%a'
 
       setopt PROMPT_SUBST
-      PROMPT="%~ ~ "
+
+      export PROMPT="% ~ "
 
       #if type rg &> /dev/null; then
         export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!.git'"
