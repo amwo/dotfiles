@@ -39,8 +39,8 @@
         precmd() { vcs_info }
         setopt prompt_subst
 
-        zstyle ':vcs_info:git:*' formats ' (%b)'
-        zstyle ':vcs_info:*' enable git
+        zstyle ":vcs_info:git:*" formats " (%b)"
+        zstyle ":vcs_info:*" enable git
 
         # Customize the prompt
         export PROMPT="${PWD##*/}@${:-%m}${vcs_info_msg_0_} ~ "
