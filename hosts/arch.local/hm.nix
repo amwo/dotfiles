@@ -1,12 +1,12 @@
 { pkgs, ... }:
 {
   imports = [
-    ../../hm/cli/direnv.nix
-    ../../hm/cli/git.nix
-    ../../hm/cli/nix.nix
-    ../../hm/cli/tools.nix
-    ../../hm/cli/neovim
-    ../../hm/cli/zsh
+    ../../hm/direnv.nix
+    ../../hm/git.nix
+    ../../hm/nix.nix
+    ../../hm/tools.nix
+    ../../hm/neovim.nix
+    ../../hm/zsh.nix
   ];
 
   home.packages = with pkgs; [
