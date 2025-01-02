@@ -24,8 +24,8 @@
       t = "tmux";
 
       gs = "git status";
-      ls = "ls -lh";
-      rl = "exec $SHELL -l";
+      ls = "ls -a";
+      reload = "exec $SHELL -l";
       dc = "docker compose";
 
       dfc = "df -h | grep '^/dev'";
