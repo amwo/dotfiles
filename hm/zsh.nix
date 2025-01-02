@@ -1,4 +1,7 @@
 { pkgs, ... }:
+let
+  lib = pkgs.lib; # lib を明示的に定義
+in
 {
   programs.zsh = {
     enable = true;
