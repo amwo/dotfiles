@@ -22,20 +22,21 @@
       g = "git";
       m = "make";
       t = "tmux";
-      v = "nvim";
 
       gs = "git status";
       ls = "ls -lh";
       rl = "exec $SHELL -l";
-      vi = "nvim";
       dc = "docker compose";
 
       dfc = "df -h | grep '^/dev'";
       cat = "bat";
-      vim = "nvim";
       dci = "docker run --rm -it";
 
       grep = "rg";
+
+      v = "nvim";
+      vi = "nvim";
+      vim = "nvim";
     };
 
     initExtra = ''
@@ -53,6 +54,10 @@
       setopt PROMPT_SUBST
 
       export PROMPT="%F{green}%*%f %F{blue}%~%f %F{red}%f$ "
+
+      #if type rg &> /dev/null; then
+        export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!.git'"
+      #fi
     '';
   };
 }
