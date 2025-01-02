@@ -3,6 +3,15 @@
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
+    completionInit = "autoload -U compinit && compinit -u";
+    defaultKeymap = "emacs";
+    envExtra = ''
+      export NIX_PATH=$HOME/.nix-defexpr/channels
+
+      if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then
+        . ~/.nix-profile/etc/profile.d/nix.sh
+      fi
+    '';
 
     enableCompletion = true;
     autosuggestion.enable = true;
