@@ -20,11 +20,11 @@
 
       gs = "git status";
       ls = "ls -a";
-      rl = "exec $SEHLL -l"
+      rl = "exec $SEHLL -l";
       vi = "nvim";
       dc = "docker compose";
 
-      dfc = "df | grep 1p2"
+      dfc = "df | grep 1p2";
       cat = "bat";
       vim = "nvim";
       dci = "docker run --rm -it";
