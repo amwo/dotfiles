@@ -1,7 +1,4 @@
 { pkgs, ... }:
-let
-  lib = pkgs.lib; # lib を明示的に定義
-in
 {
   programs.zsh = {
     enable = true;
@@ -47,10 +44,10 @@ in
     '';
   };
 
-  home.activation.setDefaultShell = lib.hm.activation.runCommand "set-zsh-default" {
-    shellPath = "${pkgs.zsh}/bin/zsh";
+  home.activation.setDefaultShell = pkgs.lib.hm.activation.runCommand "set-zsh-default" {
+    shellPath = "${pkgs.zsh}/bin/zsh"; # zsh のパス
   } ''
-    if [ "$(echo $SHELL)" != "${shellPath}" ]; then
+    if [ "$(basename $SHELL)" != "zsh" ]; then
       echo "Changing default shell to ${shellPath}"
       chsh -s "${shellPath}"
     fi
