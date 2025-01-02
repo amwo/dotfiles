@@ -52,6 +52,7 @@
       zstyle ':vcs_info:git:*' actionformats '%b|%a'
 
       setopt PROMPT_SUBST
+      PROMPT="%~ ~ "
 
       #if type rg &> /dev/null; then
         export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!.git'"
