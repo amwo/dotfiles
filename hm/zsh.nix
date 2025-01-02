@@ -35,7 +35,6 @@
         export NIXPKGS_ALLOW_UNFREE=1
         export TERM=xterm-256color
 
-        # Initialize vcs_info
         autoload -Uz vcs_info
         precmd() { vcs_info }
         setopt prompt_subst
@@ -44,7 +43,7 @@
         zstyle ':vcs_info:*' enable git
 
         # Customize the prompt
-        export PROMPT="%F{blue}%~%f@%m%F{yellow}${vcs_info_msg_0_}%f ~ "
+        export PROMPT='${PWD##*/}@${:-%m}${vcs_info_msg_0_} ~ '
       '';
   };
 }
