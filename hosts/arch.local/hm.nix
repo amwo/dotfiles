@@ -3,6 +3,7 @@
   imports = [
     ../../hm/direnv.nix
     ../../hm/git.nix
+    ../../hm/tmux.nix
     ../../hm/nix.nix
     ../../hm/tools.nix
     ../../hm/neovim.nix
