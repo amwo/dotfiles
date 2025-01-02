@@ -13,9 +13,9 @@
 
       c = "cargo"
       g = "git";
-      m = 'make'
+      m = 'make';
       s = "screen"
-      t = "tmux"
+      t = "tmux";
       v = "nvim";
 
       gs = "git status";
