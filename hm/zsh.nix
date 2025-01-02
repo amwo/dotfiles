@@ -34,15 +34,18 @@
         export EDITOR="nvim"
         export NIXPKGS_ALLOW_UNFREE=1
         export TERM=xterm-256color
-        export PROMPT="%F{blue}%~%f@%m%F{yellow}${vcs_info_msg_0_}%f ~ "
 
-        autoload -Uz compinit && compinit
+        # Initialize vcs_info
         autoload -Uz vcs_info
+        precmd() { vcs_info }
+        setopt prompt_subst
 
-        setopt PROMPT_SUBST
+        zstyle ':vcs_info:git:*' formats ' (%b)'
+        zstyle ':vcs_info:*' enable git
 
-        zstyle ":completion:*" matcher-list "m:{a-z}={A-Z}"
-        zstyle ":vcs_info:git:*" formats " (%b)"
+        # Customize the prompt
+        export PROMPT="%F{blue}%~%f@%m%F{yellow}${vcs_info_msg_0_}%f ~ "
       '';
   };
 }
+
