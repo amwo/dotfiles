@@ -14,6 +14,8 @@
     terminal = "screen-256color";
     extraConfig = ''
         set -g status-justify centre
+        set -g window-status-format "◯"
+        set -g window-status-current-format "●"
     '';
   };
 }
