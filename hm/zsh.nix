@@ -33,6 +33,7 @@
       export EDITOR="nvim"
       export NIXPKGS_ALLOW_UNFREE=1
       export TERM=xterm-256color
+      export PROMPT='${PWD##*/} ~ '
 
       autoload -Uz vcs_info
       precmd() { vcs_info; }
@@ -43,14 +44,5 @@
       zstyle ':vcs_info:git:*' actionformats '%b|%a'
     '';
   };
-
-  home.activation.setDefaultShell = pkgs.lib.hm.activation.runCommand "set-zsh-default" {
-    shellPath = "${pkgs.zsh}/bin/zsh"; # zsh のパス
-  } ''
-    if [ "$(basename $SHELL)" != "zsh" ]; then
-      echo "Changing default shell to ${shellPath}"
-      chsh -s "${shellPath}"
-    fi
-  '';
 }
 
