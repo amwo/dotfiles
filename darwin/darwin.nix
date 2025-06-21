@@ -1,7 +1,5 @@
 { pkgs, ... }:
 {
-  # Only install system-wide packages here. Git is managed via
-  # home-manager in `home/home.nix`.
   environment.systemPackages = [ ];
 
   services.nix-daemon.enable = true;

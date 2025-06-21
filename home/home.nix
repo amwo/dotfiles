@@ -3,13 +3,8 @@
   imports = [
     ../pkgs/zsh.nix
     ../pkgs/neovim.nix
+    ../pkgs/git.nix
   ];
-
-  # Manage Git through home-manager
-  programs.git = {
-    enable = true;
-    package = pkgs.git;
-  };
 
   home.packages = [ ];
 
