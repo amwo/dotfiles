@@ -1,52 +1,45 @@
- {
-  description = "am's environment.";
-
+{
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
-
-    fenix = {
-      url = "github:nix-community/fenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixpkgs.url = "nixpkgs";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    home-manager.url = "github:nix-community/home-manager";
+    nix-darwin.url = "github:LnL7/nix-darwin";
   };
 
-  outputs =
-    inputs:
-    let
-      allSystems = [
-        "aarch64-linux"
-        "x86_64-linux"
-        "aarch64-darwin"
-        "x86_64-darwin"
-      ];
-      forAllSystems = inputs.nixpkgs.lib.genAttrs allSystems;
-    in
-    {
-      homeConfigurations = (import ./hosts inputs).home-manager;
+  outputs = inputs@{ self, nixpkgs, flake-parts, home-manager, nix-darwin, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [ "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ];
 
-      devShells = forAllSystems (
-        system:
-        let
-          pkgs = inputs.nixpkgs.legacyPackages.${system};
-          formatters = with pkgs; [
-            nixfmt-rfc-style
-            rustfmt
+      perSystem = { system, pkgs, ... }: {
+        _module.args.pkgs = import nixpkgs { inherit system; };
+        _module.args.username = let u = builtins.getEnv "USER"; in if u == "" then "user" else u;
+        _module.args.hostname = let h = builtins.getEnv "HOSTNAME"; in if h == "" then "darwin" else h;
+
+        devShells.default = pkgs.mkShell {
+          buildInputs = [ pkgs.git pkgs.home-manager pkgs.nh ];
+        };
+
+        packages = import ./pkgs { inherit pkgs; };
+      };
+
+      flake = { config, inputs, ... }@attrs: let
+        username = attrs.username;
+        hostname = attrs.hostname;
+      in {
+        homeConfigurations."${username}" = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs { system = config.system; };
+          modules = [ ./home/home.nix ];
+        };
+
+        darwinConfigurations."${hostname}" = nix-darwin.lib.darwinSystem {
+          system = config.system;
+          modules = [
+            ./darwin/darwin.nix
+            home-manager.darwinModules.home-manager
+            { users.users.${username}.home = "/Users/${username}"; }
+            { home-manager.users.${username}.imports = [ ./home/home.nix ]; }
           ];
-          scripts = [
-            (pkgs.writeScriptBin "update-input" ''
-              nix flake lock --override-input "$1" "$2"
-            '')
-          ];
-        in
-        {
-	      default = pkgs.mkShell { packages = ([ pkgs.nh ]) ++ formatters ++ scripts; };
-        }
-      );
+        };
+      };
     };
 }
