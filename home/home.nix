@@ -1,8 +1,8 @@
 { pkgs, ... }:
 {
   imports = [
-    ./zsh.nix
-    ./neovim.nix
+    ../pkgs/zsh.nix
+    ../pkgs/neovim.nix
   ];
 
   # Manage Git through home-manager
