@@ -1,13 +1,12 @@
 { pkgs, ... }:
 {
   imports = [
-    ./zsh.nix
-    ./neovim.nix
+    ../pkgs/zsh.nix
+    ../pkgs/neovim.nix
+    ../pkgs/git.nix
   ];
 
-  home.packages = [
-    pkgs.git
-  ];
+  home.packages = [ ];
 
   xdg.configFile."hammerspoon/init.lua".source = ../hammerspoon/init.lua;
 
