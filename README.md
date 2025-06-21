@@ -18,3 +18,7 @@ nix run nix-darwin -- switch --flake .
 ```
 
 Homebrew is used for GUI applications such as Hammerspoon, Google Japanese Input and Alacritty.
+
+## Modules
+
+Configuration modules for Git, Zsh, and Neovim live in the `pkgs` directory and are imported by `home/home.nix`.
