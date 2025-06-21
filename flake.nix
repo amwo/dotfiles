@@ -31,10 +31,16 @@
           modules = [ ./home/home.nix ];
         };
 
+        # Use a host-specific module if it exists under hosts/${hostname}/nix-darwin.nix
         darwinConfigurations."${hostname}" = nix-darwin.lib.darwinSystem {
           system = config.system;
-          modules = [
-            ./darwin/darwin.nix
+          modules = let
+            hostModulePath = "${toString ./.}/hosts/${hostname}/nix-darwin.nix";
+            hostModule = if builtins.pathExists hostModulePath
+              then builtins.toPath hostModulePath
+              else ./darwin/darwin.nix;
+          in [
+            hostModule
             home-manager.darwinModules.home-manager
             { users.users.${username}.home = "/Users/${username}"; }
             { home-manager.users.${username}.imports = [ ./home/home.nix ]; }
