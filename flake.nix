@@ -7,13 +7,17 @@
   };
 
   outputs = inputs@{ self, nixpkgs, flake-parts, home-manager, nix-darwin, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [ "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ];
+    let
+      username = "am";
+      hostname = "pax";
+      systemName = "aarch64-darwin";
+    in flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [ systemName ];
 
       perSystem = { system, pkgs, ... }: {
         _module.args.pkgs = import nixpkgs { inherit system; };
-        _module.args.username = let u = builtins.getEnv "USER"; in if u == "" then "user" else u;
-        _module.args.hostname = let h = builtins.getEnv "HOSTNAME"; in if h == "" then "darwin" else h;
+        _module.args.username = username;
+        _module.args.hostname = hostname;
 
         devShells.default = pkgs.mkShell {
           buildInputs = [ pkgs.git pkgs.home-manager pkgs.nh ];
@@ -22,18 +26,15 @@
         packages = import ./pkgs { inherit pkgs; };
       };
 
-      flake = { config, inputs, ... }@attrs: let
-        username = attrs.username;
-        hostname = attrs.hostname;
-      in {
+      flake = { inputs, ... }: {
         homeConfigurations."${username}" = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs { system = config.system; };
+          pkgs = import nixpkgs { system = systemName; };
           modules = [ ./home/home.nix ];
         };
 
         # Use a host-specific module if it exists under hosts/${hostname}/nix-darwin.nix
         darwinConfigurations."${hostname}" = nix-darwin.lib.darwinSystem {
-          system = config.system;
+          system = systemName;
           modules = let
             hostModulePath = "${toString ./.}/hosts/${hostname}/nix-darwin.nix";
             hostModule = if builtins.pathExists hostModulePath
