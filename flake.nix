@@ -14,7 +14,10 @@
     in flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ systemName ];
 
-      perSystem = { system, pkgs, ... }: {
+      perSystem = { system, pkgs, ... }: let
+        username = "am";
+        hostname = "pax";
+      in {
         _module.args.pkgs = import nixpkgs { inherit system; };
         _module.args.username = username;
         _module.args.hostname = hostname;
