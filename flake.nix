@@ -10,10 +10,13 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ];
 
-      perSystem = { system, pkgs, ... }: {
+      perSystem = { system, pkgs, ... }: let
+        username = "am";
+        hostname = "pax";
+      in {
         _module.args.pkgs = import nixpkgs { inherit system; };
-        _module.args.username = let u = builtins.getEnv "USER"; in if u == "" then "user" else u;
-        _module.args.hostname = let h = builtins.getEnv "HOSTNAME"; in if h == "" then "darwin" else h;
+        _module.args.username = username;
+        _module.args.hostname = hostname;
 
         devShells.default = pkgs.mkShell {
           buildInputs = [ pkgs.git pkgs.home-manager pkgs.nh ];
