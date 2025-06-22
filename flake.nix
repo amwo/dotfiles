@@ -10,8 +10,9 @@
     let
       username = "am";
       hostname = "pax";
+      systemName = "aarch64-darwin";
     in flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [ "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ];
+      systems = [ systemName ];
 
       perSystem = { system, pkgs, ... }: let
         username = "am";
@@ -28,15 +29,15 @@
         packages = import ./pkgs { inherit pkgs; };
       };
 
-      flake = { config, inputs, ... }: {
+      flake = { inputs, ... }: {
         homeConfigurations."${username}" = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs { system = config.system; };
+          pkgs = import nixpkgs { system = systemName; };
           modules = [ ./home/home.nix ];
         };
 
         # Use a host-specific module if it exists under hosts/${hostname}/nix-darwin.nix
         darwinConfigurations."${hostname}" = nix-darwin.lib.darwinSystem {
-          system = config.system;
+          system = systemName;
           modules = let
             hostModulePath = "${toString ./.}/hosts/${hostname}/nix-darwin.nix";
             hostModule = if builtins.pathExists hostModulePath
