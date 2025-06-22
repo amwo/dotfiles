@@ -7,7 +7,10 @@
   };
 
   outputs = inputs@{ self, nixpkgs, flake-parts, home-manager, nix-darwin, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
+    let
+      username = "am";
+      hostname = "pax";
+    in flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ];
 
       perSystem = { system, pkgs, ... }: let
@@ -25,10 +28,7 @@
         packages = import ./pkgs { inherit pkgs; };
       };
 
-      flake = { config, inputs, ... }@attrs: let
-        username = attrs.username;
-        hostname = attrs.hostname;
-      in {
+      flake = { config, inputs, ... }: {
         homeConfigurations."${username}" = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs { system = config.system; };
           modules = [ ./home/home.nix ];
