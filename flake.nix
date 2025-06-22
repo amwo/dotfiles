@@ -7,13 +7,16 @@
   };
 
   outputs = inputs@{ self, nixpkgs, flake-parts, home-manager, nix-darwin, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
+    let
+      username = "am";
+      hostname = "pax";
+    in flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ];
 
       perSystem = { system, pkgs, ... }: {
         _module.args.pkgs = import nixpkgs { inherit system; };
-        _module.args.username = let u = builtins.getEnv "USER"; in if u == "" then "user" else u;
-        _module.args.hostname = let h = builtins.getEnv "HOSTNAME"; in if h == "" then "darwin" else h;
+        _module.args.username = username;
+        _module.args.hostname = hostname;
 
         devShells.default = pkgs.mkShell {
           buildInputs = [ pkgs.git pkgs.home-manager pkgs.nh ];
@@ -22,10 +25,7 @@
         packages = import ./pkgs { inherit pkgs; };
       };
 
-      flake = { config, inputs, ... }@attrs: let
-        username = attrs.username;
-        hostname = attrs.hostname;
-      in {
+      flake = { config, inputs, ... }: {
         homeConfigurations."${username}" = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs { system = config.system; };
           modules = [ ./home/home.nix ];
