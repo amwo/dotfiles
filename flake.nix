@@ -32,7 +32,10 @@
       flake = { inputs, ... }: {
         homeConfigurations."${username}" = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs { system = systemName; };
-          modules = [ ./home/home.nix ];
+          modules = [
+            { home.username = username; home.homeDirectory = "/Users/${username}"; }
+            ./home/home.nix
+          ];
         };
 
         # Use a host-specific module if it exists under hosts/${hostname}/nix-darwin.nix
